@@ -423,66 +423,20 @@ public class Techshop extends javax.swing.JFrame {
 
     private void insertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertButtonActionPerformed
 
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/techshop", "root", "");
-            Statement stmt = (Statement) con.createStatement();
-            String query = "insert into computershop (productid, productname, productprice, productcatagory,ccustomername,ccustomerphone) values ('"+txtCustomerId.getText()+"', '"+txtProductNames.getText()+"', '"+txtProductPrices.getText()+"', '"+combobox.getSelectedItem().toString()+"', '"+txtCustName.getText()+"', '"+txtCustPhone.getText()+"')";
-            stmt.executeUpdate(query);
-            JOptionPane.showMessageDialog(null, "Data successfullly inserted");
-
-        }catch(Exception e) {
-            JOptionPane.showMessageDialog(null, "Error"+ e);
-        }
+     
 
     }//GEN-LAST:event_insertButtonActionPerformed
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/techshop", "root", "");
-            Statement stmt = (Statement) con.createStatement();
-            String query = "update computershop set productname= '"+txtProductNames.getText()+"',productprice= '"+txtProductPrices.getText()+"',productcatagory= '"+combobox.getSelectedItem().toString()+"',ccustomername= '"+txtCustName.getText()+"',ccustomerphone= '"+txtCustPhone.getText()+"' where productid= '"+txtCustomerId.getText()+"';";
-            stmt.executeUpdate(query);
-            JOptionPane.showMessageDialog(null, "Data updated successfully");
-
-        }catch(Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error"+ ex);
-        }
+       
     }//GEN-LAST:event_updateButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/techshop", "root", "");
-            Statement stmt = (Statement) con.createStatement();
-            String query = "delete from computershop where productid= '"+txtCustomerId.getText()+"'  ";
-            stmt.executeUpdate(query);
-            JOptionPane.showMessageDialog(null, "Data deleted successfullly");
-
-        }catch(Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error"+ ex);
-        }
+        
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void viewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewButtonActionPerformed
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/techshop", "root", "");
-            String query = "select * from computershop where productid ='"+txtCustomerId.getText()+"'";
-            PreparedStatement statement = con.prepareStatement(query);
-
-            ResultSet set = statement.executeQuery();
-            while(set.next()){
-                txtProductNames.setText(set.getString("productname"));
-                txtProductPrices.setText(set.getString("productprice"));
-                combobox.setSelectedItem(set.getString("productcatagory"));
-                txtCustName.setText(set.getString("ccustomername"));
-                txtCustPhone.setText(set.getString("ccustomerphone"));
-            }
-        }catch(Exception ex){
-            JOptionPane.showMessageDialog(null, "Error"+ ex);
-        }
+       
 
     }//GEN-LAST:event_viewButtonActionPerformed
 
@@ -503,41 +457,12 @@ public class Techshop extends javax.swing.JFrame {
 
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
         // TODO add your handling code here:
-        refreshList();
+        
     }//GEN-LAST:event_refreshButtonActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         // TODO add your handling code here:
-        if("".equals(txtSearch.getText()))
-        {
-            JOptionPane.showMessageDialog(null, "Please enter the id number to search");
-            return;
-        }
-        StringBuffer result=new StringBuffer();
-        result=new StringBuffer("");
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/techshop", "root", "");
-            String query = "select * from computershop where productid ='"+txtSearch.getText()+"';";
-            PreparedStatement statement = con.prepareStatement(query);
-            ResultSet set = statement.executeQuery();
-            while(set.next()){
-                result.append("Product ID: ").append(set.getString("productid")).append('\n');
-                result.append("Product Name: ").append(set.getString("productname")).append('\n');
-                result.append("Product Price: ").append(set.getString("productprice")).append(" Taka").append('\n');
-                result.append("Product catagory: ").append(set.getString("productcatagory")).append('\n');
-                result.append("Customer Name: ").append(set.getString("ccustomername")).append('\n');
-                result.append("Customer Phone Number: ").append(set.getString("ccustomerphone")).append('\n');
-                result.append("\n\n");
-            }
-            if("".equals(result.toString()))
-            {
-                JOptionPane.showMessageDialog(null, "There is no record with that id. Please enter valid id.");
-            }
-            txtResult.setText(result.toString());
-        }catch(Exception ex){
-            JOptionPane.showMessageDialog(null, "Error"+ ex);
-        }
+       
     }//GEN-LAST:event_searchButtonActionPerformed
 
     /**
