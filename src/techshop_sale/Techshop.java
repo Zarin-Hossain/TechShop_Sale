@@ -71,7 +71,6 @@ public class Techshop extends javax.swing.JFrame {
 
         jLabel1.setBackground(new java.awt.Color(153, 153, 255));
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Techshop");
 
@@ -93,20 +92,16 @@ public class Techshop extends javax.swing.JFrame {
 
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Customer ID: ");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Product Names: ");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Product Prices: ");
 
         jLabel5.setBackground(new java.awt.Color(51, 51, 255));
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Computer Product Catagory: ");
 
         txtCustomerId.addActionListener(new java.awt.event.ActionListener() {
@@ -154,11 +149,9 @@ public class Techshop extends javax.swing.JFrame {
         });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Customer Name: ");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Customer Phone Number: ");
 
         clearButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -185,7 +178,6 @@ public class Techshop extends javax.swing.JFrame {
 
         jLabel8.setBackground(new java.awt.Color(51, 51, 255));
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Mobile Product Catagory: ");
 
         mobileCategoryList.setModel(new javax.swing.AbstractListModel<String>() {
@@ -197,18 +189,16 @@ public class Techshop extends javax.swing.JFrame {
 
         jLabel9.setBackground(new java.awt.Color(51, 51, 255));
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("General Product Catagory: ");
 
         generalCategoryList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Processor", "Ram", "Monitor", "Mouse", "Hard disk", "Other" };
+            String[] strings = { "Earphones", "Socket", "Multimeter", "Switch", "Wires", "Fan", "Light", "Regulator", "Other" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
         jScrollPane4.setViewportView(generalCategoryList);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Sale Date:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
