@@ -5,6 +5,16 @@
  */
 package techshop_sale;
 
+
+import java.sql.*;
+
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.Statement;
+import java.sql.DriverManager;
+
+import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Zarin Hossain
@@ -412,9 +422,49 @@ public class Techshop extends javax.swing.JFrame {
     }//GEN-LAST:event_txtProductNamesActionPerformed
 
     private void insertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertButtonActionPerformed
+        String selectedComputer=new String();
+        for(int i=0;i<computerCategoryList.getSelectedValuesList().size();i++)
+        {
+            if(computerCategoryList.getSelectedValuesList().size()-1==i)
+                selectedComputer+=((String)computerCategoryList.getSelectedValuesList().get(i));
+            else
+                selectedComputer+=((String)computerCategoryList.getSelectedValuesList().get(i)+",");
+        }
+        String selectedMobile=new String();
+        for(int i=0;i<mobileCategoryList.getSelectedValuesList().size();i++)
+        {
+            if(mobileCategoryList.getSelectedValuesList().size()-1==i)
+                selectedMobile+=((String)mobileCategoryList.getSelectedValuesList().get(i));
+            else
+                selectedMobile+=((String)mobileCategoryList.getSelectedValuesList().get(i)+",");
+        }
+        String selectedGeneral=new String();
+        for(int i=0;i<generalCategoryList.getSelectedValuesList().size();i++)
+        {
+            if(generalCategoryList.getSelectedValuesList().size()-1==i)
+                selectedGeneral+=((String)generalCategoryList.getSelectedValuesList().get(i));
+            else
+                selectedGeneral+=((String)generalCategoryList.getSelectedValuesList().get(i)+",");
+        }
 
-     
-
+        if(saleDate.getDate()==null)
+        {
+            JOptionPane.showMessageDialog(null, "Please Select a date");
+            return; 
+        }
+        String sale_date=new SimpleDateFormat("YYYY/MM/dd").format(saleDate.getDate());
+        
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/techshop_sale", "root", "");
+            Statement stmt = (Statement) con.createStatement();
+            String query = "insert into techshop_sale (customer_id, customer_name, customer_phone, product_names, product_prices, category_computer, category_mobile, category_general, sale_date) values ('"+txtCustomerId.getText()+"', '"+txtCustName.getText()+"', '"+txtCustPhone.getText()+"', '"+txtProductNames.getText()+"', '"+txtProductPrices.getText()+"', '"+selectedComputer+"', '"+selectedMobile+"', '"+selectedGeneral+"', '"+sale_date+"')";
+            stmt.executeUpdate(query);
+            JOptionPane.showMessageDialog(null, "Data successfullly inserted");
+                       
+        }catch(Exception e) {
+            JOptionPane.showMessageDialog(null, "Error"+ e);
+        }
     }//GEN-LAST:event_insertButtonActionPerformed
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
