@@ -5,6 +5,12 @@
  */
 package techshop_sale;
 
+import com.mysql.jdbc.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Zarin Hossain
@@ -40,7 +46,7 @@ public class Sales extends javax.swing.JFrame {
         deleteButton = new javax.swing.JButton();
         viewButton = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        txtCustPhone = new javax.swing.JTextField();
+        txtTotalBill = new javax.swing.JTextField();
         clearButton = new javax.swing.JButton();
         saleDate = new org.jdesktop.swingx.JXDatePicker();
         jLabel10 = new javax.swing.JLabel();
@@ -165,7 +171,7 @@ public class Sales extends javax.swing.JFrame {
                             .addComponent(jLabel7))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCustPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTotalBill, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(saleDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(165, 165, 165)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -196,7 +202,7 @@ public class Sales extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(7, 7, 7)
                         .addComponent(jLabel7))
-                    .addComponent(txtCustPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTotalBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
@@ -243,7 +249,23 @@ public class Sales extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void viewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewButtonActionPerformed
-
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/techshop_sale", "root", "");
+            String query = "select * from techshop_sale where customer_id ='"+txtId.getText()+"'";
+            PreparedStatement statement = con.prepareStatement(query);
+            
+            ResultSet set = statement.executeQuery();
+            if(set.next()){
+            txtName.setText(set.getString("product_names"));
+            txtPrice.setText(set.getString("product_prices"));
+            String saleDateStr=set.getString("sale_date");
+            System.out.println(saleDateStr);
+            saleDate.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(saleDateStr));
+            }
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Error"+ ex);
+        }
     }//GEN-LAST:event_viewButtonActionPerformed
 
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
@@ -251,7 +273,8 @@ public class Sales extends javax.swing.JFrame {
         txtName.setText(null);
         txtPrice.setText(null);
         txtId.setText(null);
-        txtCustPhone.setText(null);
+        txtTotalBill.setText(null);
+        saleDate.setDate(null);
     }//GEN-LAST:event_clearButtonActionPerformed
 
     /**
@@ -301,10 +324,10 @@ public class Sales extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private org.jdesktop.swingx.JXDatePicker saleDate;
-    private javax.swing.JTextField txtCustPhone;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPrice;
+    private javax.swing.JTextField txtTotalBill;
     private javax.swing.JButton updateButton;
     private javax.swing.JButton viewButton;
     // End of variables declaration//GEN-END:variables
