@@ -472,7 +472,17 @@ public class Techshop extends javax.swing.JFrame {
     }//GEN-LAST:event_updateButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-        
+        try {
+            Class.forName("com.mysql.jdbc.Driver");           
+            Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/techshop_sale", "root", "");
+            Statement stmt = (Statement) con.createStatement();
+            String query = "delete from techshop_sale where customer_id= '"+txtCustomerId.getText()+"'  ";
+            stmt.executeUpdate(query);
+            JOptionPane.showMessageDialog(null, "Data deleted successfullly");
+                       
+        }catch(Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error"+ ex);
+        }
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void viewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewButtonActionPerformed
@@ -482,11 +492,6 @@ public class Techshop extends javax.swing.JFrame {
 
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
         // TODO add your handling code here:
-        txtProductNames.setText(null);
-        txtProductPrices.setText(null);
-        txtCustomerId.setText(null);
-        txtCustName.setText(null);
-        txtCustPhone.setText(null);
     }//GEN-LAST:event_clearButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
