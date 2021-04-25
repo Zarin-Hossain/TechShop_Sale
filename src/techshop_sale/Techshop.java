@@ -492,6 +492,11 @@ public class Techshop extends javax.swing.JFrame {
 
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
         // TODO add your handling code here:
+        txtProductNames.setText(null);
+        txtProductPrices.setText(null);
+        txtCustomerId.setText(null);
+        txtCustName.setText(null);
+        txtCustPhone.setText(null);
     }//GEN-LAST:event_clearButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
