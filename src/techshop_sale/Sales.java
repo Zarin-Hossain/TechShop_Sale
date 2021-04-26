@@ -6,6 +6,7 @@
 package techshop_sale;
 
 import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.Statement;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -245,7 +246,17 @@ public class Sales extends javax.swing.JFrame {
     }//GEN-LAST:event_updateButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/techshop_sale", "root", "");
+			Statement stmt = (Statement) con.createStatement();
+			String query = "delete from techshop_sale where customer_id= '"+txtId.getText()+"'  ";
+			stmt.executeUpdate(query);
+			JOptionPane.showMessageDialog(null, "Data deleted successfullly");
 
+		}catch(Exception ex) {
+			JOptionPane.showMessageDialog(null, "Error"+ ex);
+		}
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void viewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewButtonActionPerformed
