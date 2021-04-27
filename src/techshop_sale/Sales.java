@@ -273,6 +273,21 @@ public class Sales extends javax.swing.JFrame {
             String saleDateStr=set.getString("sale_date");
             System.out.println(saleDateStr);
             saleDate.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(saleDateStr));
+            
+            String prices=txtPrice.getText();
+            int totalPrice=0;
+            String pricesCategory[]=prices.split(";");
+            String pricesProducts[][]=new String[pricesCategory.length][];
+            for(int i=0;i<pricesCategory.length;i++)
+            {
+                pricesProducts[i]=pricesCategory[i].split(",");
+            }
+            for(int i=0;i<pricesProducts.length;i++)
+            {
+                for(int j=0;j<pricesProducts[i].length;j++)
+                    totalPrice+=Integer.parseInt(pricesProducts[i][j]);
+            }
+            txtTotalBill.setText(Integer.toString(totalPrice));
             }
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Error"+ ex);
