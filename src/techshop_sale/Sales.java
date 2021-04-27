@@ -242,7 +242,23 @@ public class Sales extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNameActionPerformed
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
-
+        try {
+            if(saleDate.getDate()==null)
+            {
+                JOptionPane.showMessageDialog(null, "Please Select a date");
+                return; 
+            }
+            String sale_date=new SimpleDateFormat("YYYY/MM/dd").format(saleDate.getDate());
+            Class.forName("com.mysql.jdbc.Driver");           
+            Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/techshop_sale", "root", "");
+            Statement stmt = (Statement) con.createStatement();
+            String query = "update techshop_sale set product_names= '"+txtName.getText()+"',product_prices= '"+txtPrice.getText()+"',sale_date= '"+sale_date+"' where customer_id= '"+txtId.getText()+"';";
+            stmt.executeUpdate(query);
+            JOptionPane.showMessageDialog(null, "Data updated successfully");
+                       
+        }catch(Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error"+ ex);
+        }
     }//GEN-LAST:event_updateButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
