@@ -242,37 +242,78 @@ public class Sales extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNameActionPerformed
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
-
+        try {
+            if(saleDate.getDate()==null)
+            {
+                JOptionPane.showMessageDialog(null, "Please Select a date");
+                return; 
+            }
+            String sale_date=new SimpleDateFormat("YYYY/MM/dd").format(saleDate.getDate());
+            Class.forName("com.mysql.jdbc.Driver");           
+            Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/techshop_sale", "root", "");
+            Statement stmt = (Statement) con.createStatement();
+            String query = "update techshop_sale set product_names= '"+txtName.getText()+"',product_prices= '"+txtPrice.getText()+"',sale_date= '"+sale_date+"' where customer_id= '"+txtId.getText()+"';";
+            stmt.executeUpdate(query);
+            JOptionPane.showMessageDialog(null, "Data updated successfully");
+                       
+        }catch(Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error"+ ex);
+        }
     }//GEN-LAST:event_updateButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/techshop_sale", "root", "");
-			Statement stmt = (Statement) con.createStatement();
-			String query = "delete from techshop_sale where customer_id= '"+txtId.getText()+"'  ";
-			stmt.executeUpdate(query);
-			JOptionPane.showMessageDialog(null, "Data deleted successfullly");
+        try {
+                Class.forName("com.mysql.jdbc.Driver");
+                Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/techshop_sale", "root", "");
+                Statement stmt = (Statement) con.createStatement();
+                String query = "delete from techshop_sale where customer_id= '"+txtId.getText()+"'  ";
+                stmt.executeUpdate(query);
+                JOptionPane.showMessageDialog(null, "Data deleted successfullly");
 
-		}catch(Exception ex) {
-			JOptionPane.showMessageDialog(null, "Error"+ ex);
-		}
+        }catch(Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error"+ ex);
+        }
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void viewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewButtonActionPerformed
         try {
+            if("".equals(txtId.getText()))
+            {
+                JOptionPane.showMessageDialog(null, "Please enter customer id to view.");
+                return; 
+            }
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/techshop_sale", "root", "");
             String query = "select * from techshop_sale where customer_id ='"+txtId.getText()+"'";
             PreparedStatement statement = con.prepareStatement(query);
             
             ResultSet set = statement.executeQuery();
-            if(set.next()){
+            if(!set.next())
+            {
+                JOptionPane.showMessageDialog(null, "There is no record in customer id = "+txtId.getText()+".\nPlease enter proper customer id.");
+                return; 
+            }
+            else{
             txtName.setText(set.getString("product_names"));
             txtPrice.setText(set.getString("product_prices"));
             String saleDateStr=set.getString("sale_date");
             System.out.println(saleDateStr);
             saleDate.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(saleDateStr));
+            
+            String prices=txtPrice.getText();
+            int totalPrice=0;
+            String pricesCategory[]=prices.split(";");
+            String pricesProducts[][]=new String[pricesCategory.length][];
+            for(int i=0;i<pricesCategory.length;i++)
+            {
+                pricesProducts[i]=pricesCategory[i].split(",");
+            }
+            for(int i=0;i<pricesProducts.length;i++)
+            {
+                for(int j=0;j<pricesProducts[i].length;j++)
+                    totalPrice+=Integer.parseInt(pricesProducts[i][j]);
+            }
+            txtTotalBill.setText(Integer.toString(totalPrice));
             }
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Error"+ ex);
