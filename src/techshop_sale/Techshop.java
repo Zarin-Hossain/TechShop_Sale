@@ -486,7 +486,52 @@ public class Techshop extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void viewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewButtonActionPerformed
-       
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/techshop_sale", "root", "");
+            String query = "select * from techshop_sale where customer_id ='"+txtCustomerId.getText()+"'";
+            PreparedStatement statement = con.prepareStatement(query);
+            
+            ResultSet set = statement.executeQuery();
+            if(set.next()){
+                txtProductNames.setText(set.getString("product_names"));
+                txtProductPrices.setText(set.getString("product_prices"));
+                txtCustName.setText(set.getString("customer_name"));
+                txtCustPhone.setText(set.getString("customer_phone"));
+                String saleDateStr=set.getString("sale_date");
+                saleDate.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(saleDateStr));
+                
+                String categoriesComputer[]=set.getString("category_computer").split(",");
+                int []computerIndexes=new int[categoriesComputer.length];
+                for(int j=0;j<categoriesComputer.length;j++)
+                    for(int i=0;i<computerCategoryList.getModel().getSize();i++)            
+                        if(computerCategoryList.getModel().getElementAt(i).equals(categoriesComputer[j]))
+                            computerIndexes[j]=i;
+                        else if((categoriesComputer[j]).equals(""))
+                                    computerIndexes[j]=-1;
+                computerCategoryList.setSelectedIndices(computerIndexes);
+                String categoriesMobile[]=set.getString("category_mobile").split(",");
+                int []mobileIndexes=new int[categoriesMobile.length];
+                for(int j=0;j<categoriesMobile.length;j++)
+                    for(int i=0;i<mobileCategoryList.getModel().getSize();i++)            
+                        if(mobileCategoryList.getModel().getElementAt(i).equals(categoriesMobile[j]))
+                            mobileIndexes[j]=i;
+                        else if((categoriesMobile[j]).equals(""))
+                                    mobileIndexes[j]=-1;
+                mobileCategoryList.setSelectedIndices(mobileIndexes);
+                String categoriesGeneral[]=set.getString("category_general").split(",");
+                int []generalIndexes=new int[categoriesGeneral.length];
+                for(int j=0;j<categoriesGeneral.length;j++)
+                    for(int i=0;i<generalCategoryList.getModel().getSize();i++)            
+                        if(generalCategoryList.getModel().getElementAt(i).equals(categoriesGeneral[j]))
+                            generalIndexes[j]=i;
+                        else if((categoriesGeneral[j]).equals(""))
+                                    generalIndexes[j]=-1;
+                generalCategoryList.setSelectedIndices(generalIndexes);
+            }
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Error"+ ex);
+        }
 
     }//GEN-LAST:event_viewButtonActionPerformed
 
@@ -497,6 +542,9 @@ public class Techshop extends javax.swing.JFrame {
         txtCustomerId.setText(null);
         txtCustName.setText(null);
         txtCustPhone.setText(null);
+        computerCategoryList.clearSelection();
+        mobileCategoryList.clearSelection();
+        generalCategoryList.clearSelection();
     }//GEN-LAST:event_clearButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
