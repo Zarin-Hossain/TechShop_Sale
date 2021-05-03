@@ -487,13 +487,23 @@ public class Techshop extends javax.swing.JFrame {
 
     private void viewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewButtonActionPerformed
         try {
+            if("".equals(txtCustomerId.getText()))
+            {
+                JOptionPane.showMessageDialog(null, "Please enter customer id to view.");
+                return; 
+            }
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/techshop_sale", "root", "");
             String query = "select * from techshop_sale where customer_id ='"+txtCustomerId.getText()+"'";
             PreparedStatement statement = con.prepareStatement(query);
             
             ResultSet set = statement.executeQuery();
-            if(set.next()){
+            if(!set.next())
+            {
+                JOptionPane.showMessageDialog(null, "There is no record in customer id = "+txtCustomerId.getText()+".\nPlease enter proper customer id.");
+                return; 
+            }
+            else{
                 txtProductNames.setText(set.getString("product_names"));
                 txtProductPrices.setText(set.getString("product_prices"));
                 txtCustName.setText(set.getString("customer_name"));
