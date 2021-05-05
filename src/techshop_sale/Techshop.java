@@ -468,7 +468,47 @@ public class Techshop extends javax.swing.JFrame {
     }//GEN-LAST:event_insertButtonActionPerformed
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
-       
+        String selectedComputer=new String();
+        for(int i=0;i<computerCategoryList.getSelectedValuesList().size();i++)
+        {
+            if(computerCategoryList.getSelectedValuesList().size()-1==i)
+                selectedComputer+=((String)computerCategoryList.getSelectedValuesList().get(i));
+            else
+                selectedComputer+=((String)computerCategoryList.getSelectedValuesList().get(i)+",");
+        }
+        String selectedMobile=new String();
+        for(int i=0;i<mobileCategoryList.getSelectedValuesList().size();i++)
+        {
+            if(mobileCategoryList.getSelectedValuesList().size()-1==i)
+                selectedMobile+=((String)mobileCategoryList.getSelectedValuesList().get(i));
+            else
+                selectedMobile+=((String)mobileCategoryList.getSelectedValuesList().get(i)+",");
+        }
+        String selectedGeneral=new String();
+        for(int i=0;i<generalCategoryList.getSelectedValuesList().size();i++)
+        {
+            if(generalCategoryList.getSelectedValuesList().size()-1==i)
+                selectedGeneral+=((String)generalCategoryList.getSelectedValuesList().get(i));
+            else
+                selectedGeneral+=((String)generalCategoryList.getSelectedValuesList().get(i)+",");
+        }
+        try {
+            if(saleDate.getDate()==null)
+            {
+                JOptionPane.showMessageDialog(null, "Please Select a date");
+                return; 
+            }
+            String sale_date=new SimpleDateFormat("YYYY/MM/dd").format(saleDate.getDate());
+            Class.forName("com.mysql.jdbc.Driver");           
+            Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/techshop_sale", "root", "");
+            Statement stmt = (Statement) con.createStatement();
+            String query = "update techshop_sale set product_names= '"+txtProductNames.getText()+"',product_prices= '"+txtProductPrices.getText()+"',category_computer= '"+selectedComputer+"',category_mobile= '"+selectedMobile+"',category_general= '"+selectedGeneral+"',customer_name= '"+txtCustName.getText()+"',customer_phone= '"+txtCustPhone.getText()+"',sale_date= '"+sale_date+"' where customer_id= '"+txtCustomerId.getText()+"';";
+            stmt.executeUpdate(query);
+            JOptionPane.showMessageDialog(null, "Data updated successfully");
+                       
+        }catch(Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error"+ ex);
+        }
     }//GEN-LAST:event_updateButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
@@ -555,6 +595,7 @@ public class Techshop extends javax.swing.JFrame {
         computerCategoryList.clearSelection();
         mobileCategoryList.clearSelection();
         generalCategoryList.clearSelection();
+        saleDate.setDate(null);
     }//GEN-LAST:event_clearButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
