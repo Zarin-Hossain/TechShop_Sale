@@ -422,29 +422,29 @@ public class Techshop extends javax.swing.JFrame {
     }//GEN-LAST:event_txtProductNamesActionPerformed
 
     private void insertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertButtonActionPerformed
-        String selectedComputer=new String();
+        String productsComputer=new String();
         for(int i=0;i<computerCategoryList.getSelectedValuesList().size();i++)
         {
             if(computerCategoryList.getSelectedValuesList().size()-1==i)
-                selectedComputer+=((String)computerCategoryList.getSelectedValuesList().get(i));
+                productsComputer+=((String)computerCategoryList.getSelectedValuesList().get(i));
             else
-                selectedComputer+=((String)computerCategoryList.getSelectedValuesList().get(i)+",");
+                productsComputer+=((String)computerCategoryList.getSelectedValuesList().get(i)+",");
         }
-        String selectedMobile=new String();
+        String productsMobile=new String();
         for(int i=0;i<mobileCategoryList.getSelectedValuesList().size();i++)
         {
             if(mobileCategoryList.getSelectedValuesList().size()-1==i)
-                selectedMobile+=((String)mobileCategoryList.getSelectedValuesList().get(i));
+                productsMobile+=((String)mobileCategoryList.getSelectedValuesList().get(i));
             else
-                selectedMobile+=((String)mobileCategoryList.getSelectedValuesList().get(i)+",");
+                productsMobile+=((String)mobileCategoryList.getSelectedValuesList().get(i)+",");
         }
-        String selectedGeneral=new String();
+        String productsGeneral=new String();
         for(int i=0;i<generalCategoryList.getSelectedValuesList().size();i++)
         {
             if(generalCategoryList.getSelectedValuesList().size()-1==i)
-                selectedGeneral+=((String)generalCategoryList.getSelectedValuesList().get(i));
+                productsGeneral+=((String)generalCategoryList.getSelectedValuesList().get(i));
             else
-                selectedGeneral+=((String)generalCategoryList.getSelectedValuesList().get(i)+",");
+                productsGeneral+=((String)generalCategoryList.getSelectedValuesList().get(i)+",");
         }
 
         if(saleDate.getDate()==null)
@@ -458,7 +458,7 @@ public class Techshop extends javax.swing.JFrame {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/techshop_sale", "root", "");
             Statement stmt = (Statement) con.createStatement();
-            String query = "insert into techshop_sale (customer_id, customer_name, customer_phone, product_names, product_prices, category_computer, category_mobile, category_general, sale_date) values ('"+txtCustomerId.getText()+"', '"+txtCustName.getText()+"', '"+txtCustPhone.getText()+"', '"+txtProductNames.getText()+"', '"+txtProductPrices.getText()+"', '"+selectedComputer+"', '"+selectedMobile+"', '"+selectedGeneral+"', '"+sale_date+"')";
+            String query = "insert into techshop_sale (customer_id, customer_name, customer_phone, product_names, product_prices, category_computer, category_mobile, category_general, sale_date) values ('"+txtCustomerId.getText()+"', '"+txtCustName.getText()+"', '"+txtCustPhone.getText()+"', '"+txtProductNames.getText()+"', '"+txtProductPrices.getText()+"', '"+productsComputer+"', '"+productsMobile+"', '"+productsGeneral+"', '"+sale_date+"')";
             stmt.executeUpdate(query);
             JOptionPane.showMessageDialog(null, "Data successfullly inserted");
                        
@@ -468,29 +468,29 @@ public class Techshop extends javax.swing.JFrame {
     }//GEN-LAST:event_insertButtonActionPerformed
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
-        String selectedComputer=new String();
+        String productsComputer=new String();
         for(int i=0;i<computerCategoryList.getSelectedValuesList().size();i++)
         {
             if(computerCategoryList.getSelectedValuesList().size()-1==i)
-                selectedComputer+=((String)computerCategoryList.getSelectedValuesList().get(i));
+                productsComputer+=((String)computerCategoryList.getSelectedValuesList().get(i));
             else
-                selectedComputer+=((String)computerCategoryList.getSelectedValuesList().get(i)+",");
+                productsComputer+=((String)computerCategoryList.getSelectedValuesList().get(i)+",");
         }
-        String selectedMobile=new String();
+        String productsMobile=new String();
         for(int i=0;i<mobileCategoryList.getSelectedValuesList().size();i++)
         {
             if(mobileCategoryList.getSelectedValuesList().size()-1==i)
-                selectedMobile+=((String)mobileCategoryList.getSelectedValuesList().get(i));
+                productsMobile+=((String)mobileCategoryList.getSelectedValuesList().get(i));
             else
-                selectedMobile+=((String)mobileCategoryList.getSelectedValuesList().get(i)+",");
+                productsMobile+=((String)mobileCategoryList.getSelectedValuesList().get(i)+",");
         }
-        String selectedGeneral=new String();
+        String productsGeneral=new String();
         for(int i=0;i<generalCategoryList.getSelectedValuesList().size();i++)
         {
             if(generalCategoryList.getSelectedValuesList().size()-1==i)
-                selectedGeneral+=((String)generalCategoryList.getSelectedValuesList().get(i));
+                productsGeneral+=((String)generalCategoryList.getSelectedValuesList().get(i));
             else
-                selectedGeneral+=((String)generalCategoryList.getSelectedValuesList().get(i)+",");
+                productsGeneral+=((String)generalCategoryList.getSelectedValuesList().get(i)+",");
         }
         try {
             if(saleDate.getDate()==null)
@@ -502,7 +502,7 @@ public class Techshop extends javax.swing.JFrame {
             Class.forName("com.mysql.jdbc.Driver");           
             Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/techshop_sale", "root", "");
             Statement stmt = (Statement) con.createStatement();
-            String query = "update techshop_sale set product_names= '"+txtProductNames.getText()+"',product_prices= '"+txtProductPrices.getText()+"',category_computer= '"+selectedComputer+"',category_mobile= '"+selectedMobile+"',category_general= '"+selectedGeneral+"',customer_name= '"+txtCustName.getText()+"',customer_phone= '"+txtCustPhone.getText()+"',sale_date= '"+sale_date+"' where customer_id= '"+txtCustomerId.getText()+"';";
+            String query = "update techshop_sale set product_names= '"+txtProductNames.getText()+"',product_prices= '"+txtProductPrices.getText()+"',category_computer= '"+productsComputer+"',category_mobile= '"+productsMobile+"',category_general= '"+productsGeneral+"',customer_name= '"+txtCustName.getText()+"',customer_phone= '"+txtCustPhone.getText()+"',sale_date= '"+sale_date+"' where customer_id= '"+txtCustomerId.getText()+"';";
             stmt.executeUpdate(query);
             JOptionPane.showMessageDialog(null, "Data updated successfully");
                        
@@ -564,7 +564,7 @@ public class Techshop extends javax.swing.JFrame {
                 int []mobileIndexes=new int[categoriesMobile.length];
                 for(int j=0;j<categoriesMobile.length;j++)
                     for(int i=0;i<mobileCategoryList.getModel().getSize();i++)            
-                        if(mobileCategoryList.getModel().getElementAt(i).equals(categoriesMobile[j]))
+                        if(mobileCategoryList.getModel().getElementAt(i).equals(categoriesMobile[j]))// "String".equals("string") = "String=="string"
                             mobileIndexes[j]=i;
                         else if((categoriesMobile[j]).equals(""))
                                     mobileIndexes[j]=-1;
@@ -606,7 +606,69 @@ public class Techshop extends javax.swing.JFrame {
 
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
         // TODO add your handling code here:
-        
+        String result=new String();
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/techshop_sale", "root", "");
+            String query = "select * from techshop_sale order by customer_id;";
+            PreparedStatement statement = con.prepareStatement(query);
+            
+            ResultSet set = statement.executeQuery();
+            if(!set.next())
+            {
+                JOptionPane.showMessageDialog(null, "There is no record in Database.\nPlease enter at least one record.");
+                return; 
+            }
+            else{
+                set.previous();
+                while(set.next()){
+                    result+="Customer ID: "+(set.getString("customer_id"))+"\n";
+                    result+="Customer Name: "+(set.getString("customer_name"))+"\n";
+                    result+="Customer Phone: "+(set.getString("customer_phone"))+"\n";
+                    String productsUpper[]=(set.getString("product_names")).split(";");
+                    String products[][]=new String[productsUpper.length][];
+                    String pricesUpper[]=(set.getString("product_prices")).split(";");
+                    String prices[][]=new String[productsUpper.length][];
+                    String categories[];
+                    for(int i=0;i<productsUpper.length;i++)
+                    {
+                        products[i]=productsUpper[i].split(",");
+                        prices[i]=pricesUpper[i].split(",");
+                    }
+                    for(int i=0;i<products.length;i++)
+                    {
+                        if(i==0)
+                        {
+                            categories=set.getString("category_computer").split(",");
+                            result+="\nComputer Categories:\n";
+                        }
+                        else if(i==1)
+                        {
+                            categories=set.getString("category_mobile").split(",");
+                            result+="\nMobile Categories:\n";
+                        }
+                        else
+                        {
+                            categories=set.getString("category_general").split(",");
+                            result+="\nGeneral Categories:\n";
+                        }
+                        for(int j=0;j<products[i].length;j++)
+                        {
+                            if("".equals(products[i][j]))
+                                continue;
+                            result+="\tProduct Name: "+products[i][j]+"\n";
+                            result+="\tProduct Price: "+prices[i][j]+" Taka\n";
+                            result+="\tCategory: "+categories[j]+"\n\n";
+                        }
+                    }
+                    result+="Sale Date: "+set.getString("sale_date")+"\n";
+                    result+="\n\n";
+                }
+            }
+            txtResult.setText(result);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Error"+ ex);
+        }
     }//GEN-LAST:event_refreshButtonActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
