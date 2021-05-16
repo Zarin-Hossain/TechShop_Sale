@@ -529,7 +529,7 @@ public class Techshop extends javax.swing.JFrame {
         try {
             if("".equals(txtCustomerId.getText()))
             {
-                JOptionPane.showMessageDialog(null, "Please enter customer id to view.");
+                JOptionPane.showMessageDialog(null, "Please enter a customer id to view.");
                 return; 
             }
             Class.forName("com.mysql.jdbc.Driver");
@@ -673,7 +673,71 @@ public class Techshop extends javax.swing.JFrame {
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         // TODO add your handling code here:
-       
+        String result=new String();
+        try {
+            if("".equals(txtSearch.getText()))
+            {
+                JOptionPane.showMessageDialog(null, "Please enter a customer id to view.");
+                return; 
+            }
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/techshop_sale", "root", "");
+            String query = "select * from techshop_sale where customer_id='"+txtSearch.getText()+"';";
+            PreparedStatement statement = con.prepareStatement(query);
+            
+            ResultSet set = statement.executeQuery();
+            if(!set.next())
+            {
+                JOptionPane.showMessageDialog(null, "There is no record in customer id = "+txtSearch.getText()+".\nPlease enter proper customer id.");
+                return; 
+            }
+            else{
+                result+="Customer ID: "+(set.getString("customer_id"))+"\n";
+                result+="Customer Name: "+(set.getString("customer_name"))+"\n";
+                result+="Customer Phone: "+(set.getString("customer_phone"))+"\n";
+                String productsUpper[]=(set.getString("product_names")).split(";");
+                String products[][]=new String[productsUpper.length][];
+                String pricesUpper[]=(set.getString("product_prices")).split(";");
+                String prices[][]=new String[productsUpper.length][];
+                String categories[];
+                for(int i=0;i<productsUpper.length;i++)
+                {
+                    products[i]=productsUpper[i].split(",");
+                    prices[i]=pricesUpper[i].split(",");
+                }
+                for(int i=0;i<products.length;i++)
+                {
+                    if(i==0)
+                    {
+                        categories=set.getString("category_computer").split(",");
+                        result+="\nComputer Categories:\n";
+                    }
+                    else if(i==1)
+                    {
+                        categories=set.getString("category_mobile").split(",");
+                        result+="\nMobile Categories:\n";
+                    }
+                    else
+                    {
+                        categories=set.getString("category_general").split(",");
+                        result+="\nGeneral Categories:\n";
+                    }
+                    for(int j=0;j<products[i].length;j++)
+                    {
+                        if("".equals(products[i][j]))
+                            continue;
+                        result+="\tProduct Name: "+products[i][j]+"\n";
+                        result+="\tProduct Price: "+prices[i][j]+" Taka\n";
+                        result+="\tCategory: "+categories[j]+"\n\n";
+                    }
+                }
+                result+="Sale Date: "+set.getString("sale_date")+"\n";
+                result+="\n\n";
+            }
+            txtResult.setText(result);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Error"+ ex);
+        }
     }//GEN-LAST:event_searchButtonActionPerformed
 
     /**

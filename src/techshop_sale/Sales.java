@@ -252,7 +252,8 @@ public class Sales extends javax.swing.JFrame {
             Class.forName("com.mysql.jdbc.Driver");           
             Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/techshop_sale", "root", "");
             Statement stmt = (Statement) con.createStatement();
-            String query = "update techshop_sale set product_names= '"+txtName.getText()+"',product_prices= '"+txtPrice.getText()+"',sale_date= '"+sale_date+"' where customer_id= '"+txtId.getText()+"';";
+            String query = "update techshop_sale set product_names= '"+txtName.getText()+"',product_prices= '"
+                    +txtPrice.getText()+"',sale_date= '"+sale_date+"' where customer_id= '"+txtId.getText()+"';";
             stmt.executeUpdate(query);
             JOptionPane.showMessageDialog(null, "Data updated successfully");
                        
@@ -263,15 +264,15 @@ public class Sales extends javax.swing.JFrame {
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         try {
-                Class.forName("com.mysql.jdbc.Driver");
-                Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/techshop_sale", "root", "");
-                Statement stmt = (Statement) con.createStatement();
-                String query = "delete from techshop_sale where customer_id= '"+txtId.getText()+"'  ";
-                stmt.executeUpdate(query);
-                JOptionPane.showMessageDialog(null, "Data deleted successfullly");
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/techshop_sale", "root", "");
+            Statement stmt = (Statement) con.createStatement();
+            String query = "delete from techshop_sale where customer_id= '"+txtId.getText()+"'  ";
+            stmt.executeUpdate(query);
+            JOptionPane.showMessageDialog(null, "Data deleted successfullly");
 
         }catch(Exception ex) {
-                JOptionPane.showMessageDialog(null, "Error"+ ex);
+            JOptionPane.showMessageDialog(null, "Error"+ ex);
         }
     }//GEN-LAST:event_deleteButtonActionPerformed
 
@@ -290,14 +291,14 @@ public class Sales extends javax.swing.JFrame {
             ResultSet set = statement.executeQuery();
             if(!set.next())
             {
-                JOptionPane.showMessageDialog(null, "There is no record in customer id = "+txtId.getText()+".\nPlease enter proper customer id.");
+                JOptionPane.showMessageDialog(null, "There is no record in customer id = "+txtId.getText()
+                        +".\nPlease enter proper customer id.");
                 return; 
             }
             else{
             txtName.setText(set.getString("product_names"));
             txtPrice.setText(set.getString("product_prices"));
             String saleDateStr=set.getString("sale_date");
-            System.out.println(saleDateStr);
             saleDate.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(saleDateStr));
             
             String prices=txtPrice.getText();
