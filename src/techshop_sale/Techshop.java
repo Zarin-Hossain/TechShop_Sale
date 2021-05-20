@@ -27,6 +27,7 @@ public class Techshop extends javax.swing.JFrame {
     public Techshop() {
         initComponents();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -513,6 +514,11 @@ public class Techshop extends javax.swing.JFrame {
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         try {
+            if(saleDate.getDate()==null)
+            {
+                JOptionPane.showMessageDialog(null, "Please Select a date");
+                return; 
+            }
             Class.forName("com.mysql.jdbc.Driver");           
             Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/techshop_sale", "root", "");
             Statement stmt = (Statement) con.createStatement();

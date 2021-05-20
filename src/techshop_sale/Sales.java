@@ -24,7 +24,7 @@ public class Sales extends javax.swing.JFrame {
     public Sales() {
         initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -52,7 +52,7 @@ public class Sales extends javax.swing.JFrame {
         saleDate = new org.jdesktop.swingx.JXDatePicker();
         jLabel10 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(153, 0, 153));
 
@@ -264,6 +264,11 @@ public class Sales extends javax.swing.JFrame {
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         try {
+            if(saleDate.getDate()==null)
+            {
+                JOptionPane.showMessageDialog(null, "Please Select a date");
+                return; 
+            }
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/techshop_sale", "root", "");
             Statement stmt = (Statement) con.createStatement();
@@ -308,11 +313,7 @@ public class Sales extends javax.swing.JFrame {
             for(int i=0;i<pricesCategory.length;i++)
             {
                 pricesProducts[i]=pricesCategory[i].split(",");
-            }
-            for(int i=0;i<pricesProducts.length;i++)
-            {
-                for(int j=0;j<pricesProducts[i].length;j++)
-                    totalPrice+=Integer.parseInt(pricesProducts[i][j]);
+                totalPrice+=summation(pricesProducts[i]);
             }
             txtTotalBill.setText(Integer.toString(totalPrice));
             }
@@ -321,6 +322,17 @@ public class Sales extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_viewButtonActionPerformed
 
+    public int summation(String[] pricesArray)
+    {
+        int sum=0;
+        for(int i=0;i<pricesArray.length;i++)
+        {
+            if(!pricesArray[i].equals(""))
+                sum+=Integer.parseInt(pricesArray[i]);
+        }
+        return sum;
+    }
+    
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
         // TODO add your handling code here:
         txtName.setText(null);
